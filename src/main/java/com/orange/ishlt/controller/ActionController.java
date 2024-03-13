@@ -1,5 +1,6 @@
 package com.orange.ishlt.controller;
 
+import com.orange.ishlt.common.CommonResult;
 import com.orange.ishlt.controller.vo.ActionPageReqVO;
 import com.orange.ishlt.dal.dataobject.ActionDO;
 import com.orange.ishlt.mybatis.PageResult;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 
+import static com.orange.ishlt.common.CommonResult.success;
+
 @RestController
 @RequestMapping(value = "/session")
 public class ActionController {
@@ -18,8 +21,9 @@ public class ActionController {
     private ActionService actionService;
 
     @GetMapping("/page")
-    public PageResult<ActionDO> page(ActionPageReqVO reqVO) {
-        return actionService.page(reqVO);
+    public CommonResult<PageResult<ActionDO>> page(ActionPageReqVO reqVO) {
+        PageResult<ActionDO> page = actionService.page(reqVO);
+        return success(page);
     }
 
     /**
