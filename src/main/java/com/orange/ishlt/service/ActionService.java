@@ -6,10 +6,12 @@ import com.orange.ishlt.client.SessionDescriptionClient;
 import com.orange.ishlt.client.dto.presentations.PresentationsApiDTO;
 import com.orange.ishlt.client.dto.results.Results;
 import com.orange.ishlt.client.dto.results.ResultsApiDTO;
+import com.orange.ishlt.controller.vo.ActionPageReqVO;
 import com.orange.ishlt.dal.dataobject.ActionDO;
 import com.orange.ishlt.dal.dataobject.DetailDO;
 import com.orange.ishlt.dal.mysql.ActionMapper;
 import com.orange.ishlt.dal.mysql.DetailDOMapper;
+import com.orange.ishlt.mybatis.PageResult;
 import com.orange.ishlt.util.DateUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -33,6 +35,11 @@ public class ActionService {
     private ActionMapper actionMapper;
     @Resource
     private DetailDOMapper detailDOMapper;
+
+
+    public PageResult<ActionDO> page(ActionPageReqVO reqVO){
+        return actionMapper.selectPage(reqVO);
+    }
 
 
     public void save() {
