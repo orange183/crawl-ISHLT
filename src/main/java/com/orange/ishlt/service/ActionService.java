@@ -10,7 +10,7 @@ import com.orange.ishlt.controller.vo.ActionPageReqVO;
 import com.orange.ishlt.dal.dataobject.ActionDO;
 import com.orange.ishlt.dal.dataobject.DetailDO;
 import com.orange.ishlt.dal.mysql.ActionMapper;
-import com.orange.ishlt.dal.mysql.DetailDOMapper;
+import com.orange.ishlt.dal.mysql.DetailMapper;
 import com.orange.ishlt.mybatis.PageResult;
 import com.orange.ishlt.util.DateUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -34,14 +34,21 @@ public class ActionService {
     @Resource
     private ActionMapper actionMapper;
     @Resource
-    private DetailDOMapper detailDOMapper;
+    private DetailMapper detailMapper;
 
-
-    public PageResult<ActionDO> page(ActionPageReqVO reqVO){
+    /**
+     * 分页查询
+     *
+     * @param reqVO
+     * @return
+     */
+    public PageResult<ActionDO> page(ActionPageReqVO reqVO) {
         return actionMapper.selectPage(reqVO);
     }
 
-
+    /**
+     * 爬取网站并保存数据
+     */
     public void save() {
         // 1. 获取每天的会议对象
         ResultsApiDTO action;
@@ -65,7 +72,7 @@ public class ActionService {
                 presentations.forEach(presentation -> {
                     // 保存小主题
                     DetailDO detailDO = this.presentations2DetailDO(presentation, actionDO.getId());
-                    detailDOMapper.insert(detailDO);
+                    detailMapper.insert(detailDO);
                 });
 
             });

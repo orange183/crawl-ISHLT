@@ -9,9 +9,11 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface ActionMapper extends BaseMapperX<ActionDO> {
+
     default PageResult<ActionDO> selectPage(ActionPageReqVO reqVO) {
         return selectPage(reqVO, new LambdaQueryWrapperX<ActionDO>()
                 .likeIfPresent(ActionDO::getTitle, reqVO.getTitle())
-                .orderByDesc(ActionDO::getId));
+                .orderByAsc(ActionDO::getId));
     }
+
 }
