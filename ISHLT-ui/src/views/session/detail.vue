@@ -18,8 +18,12 @@
 
         <el-table-column prop="startTime" label="开始时间" align="center" width="180" />
         <el-table-column prop="endTime" label="结束时间" align="center" width="180" />
-        <el-table-column prop="title" label="标题" align="center" width="180" />
-        <el-table-column prop="authorBlock" label="作者块" align="center" width="900" />
+        <el-table-column prop="title" label="标题" align="center" width="300" />
+        <el-table-column prop="authorBlock" label="作者块" align="center" width="900">
+          <template slot-scope="scope">
+            <div v-html="scope.row.authorBlock" />
+          </template>
+        </el-table-column>
       </el-table>
 
       <pagination v-show="total>0" :total="total" :page.sync="listQuery.pageNo" :limit.sync="listQuery.pageSize" @pagination="getList" />

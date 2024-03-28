@@ -25,7 +25,11 @@
       >
 
         <el-table-column prop="id" label="主键id" sortable="custom" align="center" width="100" />
-        <el-table-column prop="description" label="描述" align="center" width="900" />
+        <el-table-column prop="description" label="描述" align="center" width="900">
+          <template slot-scope="scope">
+            <div v-html="scope.row.description" />
+          </template>
+        </el-table-column>
         <el-table-column prop="place" label="地点" align="center" width="180" />
         <el-table-column prop="sessionDate" label="日期" align="center" width="180" />
         <el-table-column label="明细" align="center" width="95">
