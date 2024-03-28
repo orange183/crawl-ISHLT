@@ -1,3 +1,9 @@
+spring:
+  application:
+    name: ISHLT
+  profiles:
+    active: dev
+
 server:
   port: 8080
 
@@ -10,27 +16,16 @@ mybatis-plus:
     banner: false # 关闭控制台的 Banner 打印
   type-aliases-package: com.orange.ishlt.dal.dataobject
 
-spring:
-  datasource:
-    druid:
-      web-stat-filter:
-        enabled: true
-      stat-view-servlet:
-        enabled: true
-        allow: # 设置白名单，不填则允许所有访问
-        url-pattern: /druid/*
-        login-username: # 控制台管理用户名和密码
-        login-password:
-      filter:
-        stat:
-          enabled: true
-          log-slow-sql: true # 慢 SQL 记录
-          slow-sql-millis: 300
-          merge-sql: true
-        wall:
-          config:
-            multi-statement-allow: true
-      url: jdbc:mysql://192.168.2.212:3307/ishlt?useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&nullCatalogMeansCurrent=true
-      username: root
-      password: tbl_db_543
-      driver-class-name: com.mysql.cj.jdbc.Driver
+mybatis-plus-join:
+  banner: false # 关闭控制台的 Banner 打印
+
+# 日志文件配置
+logging:
+  file:
+    name: /data/logs/${spring.application.name}.log # 日志文件名，全路径
+  level:
+    # 配置自己写的 MyBatis Mapper 打印日志
+    com.orange.ishlt: debug
+    org.elasticsearch.client: debug
+
+debug: false
